@@ -11,7 +11,7 @@ cmake_minimum_required(VERSION 3.22.1)
 # build script scope).
 project("proyectofinal")
 set(OpenCV_STATIC on)
-set(OpenCV_DIR C:/Users/kevin/OneDrive/Escritorio/SEPTIMO_CICLO/VISION_POR_COMPUTADOR/OpenCV_skd/OpenCV-android-sdk/sdk/native/jni)
+set(OpenCV_DIR D:/SEPTIMO_CICLO/VISION_POR_COMPUTADOR/OpenCV_skd/OpenCV-android-sdk/sdk/native/jni)
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 

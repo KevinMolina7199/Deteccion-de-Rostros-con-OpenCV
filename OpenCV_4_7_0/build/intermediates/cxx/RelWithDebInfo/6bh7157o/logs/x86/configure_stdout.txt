@@ -12,4 +12,4 @@
 -- Detecting CXX compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/kevin/OneDrive/Escritorio/SEPTIMO_CICLO/VISION_POR_COMPUTADOR/PROYECTO_FINAL/OpenCV_4_7_0/.cxx/RelWithDebInfo/6bh7157o/x86
+-- Build files have been written to: D:/SEPTIMO_CICLO/VISION_POR_COMPUTADOR/PROYECTO_FINAL/OpenCV_4_7_0/.cxx/RelWithDebInfo/6bh7157o/x86

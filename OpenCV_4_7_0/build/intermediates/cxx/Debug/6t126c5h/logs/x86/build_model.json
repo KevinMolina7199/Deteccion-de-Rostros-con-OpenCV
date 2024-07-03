@@ -8,9 +8,9 @@
     "triple": "i686-linux-android",
     "llvmTriple": "i686-none-linux-android"
   },
-  "cxxBuildFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\.cxx\\Debug\\6t126c5h\\x86",
-  "soFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx\\Debug\\6t126c5h\\obj\\x86",
-  "soRepublishFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cmake\\debug\\obj\\x86",
+  "cxxBuildFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\.cxx\\Debug\\6t126c5h\\x86",
+  "soFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx\\Debug\\6t126c5h\\obj\\x86",
+  "soRepublishFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cmake\\debug\\obj\\x86",
   "abiPlatformVersion": 24,
   "cmake": {
     "effectiveConfiguration": {
@@ -38,13 +38,13 @@
     "implicitBuildTargetSet": [],
     "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
     "module": {
-      "cxxFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\.cxx",
-      "intermediatesBaseFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates",
-      "intermediatesFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx",
+      "cxxFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\.cxx",
+      "intermediatesBaseFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates",
+      "intermediatesFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx",
       "gradleModulePathName": ":OpenCV_4_7_0",
-      "moduleRootFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0",
-      "moduleBuildFile": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build.gradle",
-      "makeFile": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\libcxx_helper\\CMakeLists.txt",
+      "moduleRootFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0",
+      "moduleBuildFile": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build.gradle",
+      "makeFile": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\libcxx_helper\\CMakeLists.txt",
       "buildSystem": "CMAKE",
       "ndkFolder": "C:\\Users\\kevin\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393",
       "ndkFolderBeforeSymLinking": "C:\\Users\\kevin\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393",
@@ -141,7 +141,7 @@
         "SYSTEM": {}
       },
       "project": {
-        "rootBuildGradleFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL",
+        "rootBuildGradleFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL",
         "sdkFolder": "C:\\Users\\kevin\\AppData\\Local\\Android\\Sdk",
         "isBuildOnlyTargetAbiEnabled": true,
         "isCmakeBuildCohabitationEnabled": false,
@@ -160,12 +160,12 @@
   "buildSettings": {
     "environmentVariables": []
   },
-  "prefabFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\.cxx\\Debug\\6t126c5h\\prefab\\x86",
+  "prefabFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\.cxx\\Debug\\6t126c5h\\prefab\\x86",
   "isActiveAbi": true,
   "fullConfigurationHash": "6t126c5h2j5c5y1c4n3z32m6ux6j3zx6p6x2dg1r1v1a554v163a3x67224h",
   "fullConfigurationHashKey": "# Values used to calculate the hash in this folder name.\n# Should not depend on the absolute path of the project itself.\n#   - AGP: 8.3.1.\n#   - $NDK is the path to NDK 25.1.8937393.\n#   - $PROJECT is the path to the parent folder of the root Gradle build file.\n#   - $ABI is the ABI to be built with. The specific value doesn\u0027t contribute to the value of the hash.\n#   - $HASH is the hash value computed from this text.\n#   - $CMAKE is the path to CMake 3.22.1.\n#   - $NINJA is the path to Ninja.\n-H$PROJECT/OpenCV_4_7_0/libcxx_helper\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_SYSTEM_VERSION\u003d24\n-DANDROID_PLATFORM\u003dandroid-24\n-DANDROID_ABI\u003d$ABI\n-DCMAKE_ANDROID_ARCH_ABI\u003d$ABI\n-DANDROID_NDK\u003d$NDK\n-DCMAKE_ANDROID_NDK\u003d$NDK\n-DCMAKE_TOOLCHAIN_FILE\u003d$NDK/build/cmake/android.toolchain.cmake\n-DCMAKE_MAKE_PROGRAM\u003d$NINJA\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d$PROJECT/OpenCV_4_7_0/build/intermediates/cxx/Debug/$HASH/obj/$ABI\n-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d$PROJECT/OpenCV_4_7_0/build/intermediates/cxx/Debug/$HASH/obj/$ABI\n-DCMAKE_BUILD_TYPE\u003dDebug\n-B$PROJECT/OpenCV_4_7_0/.cxx/Debug/$HASH/$ABI\n-GNinja\n-DANDROID_STL\u003dc++_shared",
   "configurationArguments": [
-    "-HC:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\libcxx_helper",
+    "-HD:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\libcxx_helper",
     "-DCMAKE_SYSTEM_NAME\u003dAndroid",
     "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
     "-DCMAKE_SYSTEM_VERSION\u003d24",
@@ -176,13 +176,13 @@
     "-DCMAKE_ANDROID_NDK\u003dC:\\Users\\kevin\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393",
     "-DCMAKE_TOOLCHAIN_FILE\u003dC:\\Users\\kevin\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393\\build\\cmake\\android.toolchain.cmake",
     "-DCMAKE_MAKE_PROGRAM\u003dC:\\Users\\kevin\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
-    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dC:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx\\Debug\\6t126c5h\\obj\\x86",
-    "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003dC:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx\\Debug\\6t126c5h\\obj\\x86",
+    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dD:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx\\Debug\\6t126c5h\\obj\\x86",
+    "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003dD:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx\\Debug\\6t126c5h\\obj\\x86",
     "-DCMAKE_BUILD_TYPE\u003dDebug",
-    "-BC:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\.cxx\\Debug\\6t126c5h\\x86",
+    "-BD:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\.cxx\\Debug\\6t126c5h\\x86",
     "-GNinja",
     "-DANDROID_STL\u003dc++_shared"
   ],
   "stlLibraryFile": "C:\\Users\\kevin\\AppData\\Local\\Android\\Sdk\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\i686-linux-android\\libc++_shared.so",
-  "intermediatesParentFolder": "C:\\Users\\kevin\\OneDrive\\Escritorio\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx\\Debug\\6t126c5h"
+  "intermediatesParentFolder": "D:\\SEPTIMO_CICLO\\VISION_POR_COMPUTADOR\\PROYECTO_FINAL\\OpenCV_4_7_0\\build\\intermediates\\cxx\\Debug\\6t126c5h"
 }

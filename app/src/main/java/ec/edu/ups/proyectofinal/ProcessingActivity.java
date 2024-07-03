@@ -69,7 +69,7 @@ public class ProcessingActivity extends AppCompatActivity {
                 selectedBitmap = rotateImageIfRequired(selectedBitmap, imagePath); // Corregir orientación
                 bitmapI = selectedBitmap.copy(Bitmap.Config.ARGB_8888, true);
                 bitmapO = Bitmap.createBitmap(bitmapI.getWidth(), bitmapI.getHeight(), Bitmap.Config.ARGB_8888);
-                //backgroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.fondo);  // Asegúrate de tener una imagen llamada fondo1 en res/drawable
+                backgroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.fondo);  // Asegúrate de tener una imagen llamada fondo1 en res/drawable
                 backgroundBitmap = Bitmap.createScaledBitmap(backgroundBitmap, bitmapI.getWidth(), bitmapI.getHeight(), false);
 
                 applyCannyFilter(bitmapI, bitmapO, 50, 150);
