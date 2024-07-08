@@ -1,6 +1,8 @@
 package ec.edu.ups.proyectofinal;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -34,7 +36,7 @@ import java.util.List;
 public class CameraActivity extends org.opencv.android.CameraActivity {
     private CameraBridgeViewBase cameraBridgeViewBase;
 
-    CascadeClassifier cascadeClassifier;
+    private CascadeClassifier faceCascade, eyeCascade, noseCascade, mouthCascade;
     private Button btnCapture;
     private Mat currentFrame;
     private TextView fpsTextView;
@@ -45,6 +47,12 @@ public class CameraActivity extends org.opencv.android.CameraActivity {
     Mat gray,rgb,transpose_gray,transpose_rgb;
 
     MatOfRect rects;
+
+    static {
+        System.loadLibrary("native-lib");
+    }
+    private native void detectFacialFeatures(long addrInput);
+    private native void loadCascadeFiles(String faceCascadePath, String eyeCascadePath, String noseCascadePath, String mouthCascadePath);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,36 +85,16 @@ public class CameraActivity extends org.opencv.android.CameraActivity {
 
             @Override
             public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-                /*currentFrame = inputFrame.rgba();
-                calculateAndDisplayFPS();
-                return currentFrame;*/
+                rgb = inputFrame.rgba();
+                gray = inputFrame.gray();
 
+                Core.flip(rgb, rgb, Core.ROTATE_180);
+                Core.flip(gray, gray, Core.ROTATE_180);
 
-                rgb=inputFrame.rgba();
-                gray=inputFrame.gray();
+                transpose_gray = gray.t();
+                transpose_rgb = rgb.t();
 
-                //Core.flip();
-
-                Core.flip(rgb,rgb,Core.ROTATE_180);
-                Core.flip(gray,gray,Core.ROTATE_180);
-
-                transpose_gray=gray.t();
-                transpose_rgb=rgb.t();
-
-
-                MatOfRect rects=new MatOfRect();
-
-                cascadeClassifier.detectMultiScale(transpose_rgb,rects,1.1,2);
-
-                for (Rect rect: rects.toList()){
-
-                    Mat submat=transpose_rgb.submat(rect);
-
-                    Imgproc.blur(submat,submat,new Size(10,10));
-                    Imgproc.rectangle(transpose_rgb,rect,new Scalar(0,255,0),10);
-
-                    submat.release();
-                }
+                detectFacialFeatures(transpose_rgb.getNativeObjAddr());
 
                 return transpose_rgb.t();
             }
@@ -116,30 +104,15 @@ public class CameraActivity extends org.opencv.android.CameraActivity {
         if (OpenCVLoader.initDebug()) {
             cameraBridgeViewBase.enableView();
 
-            try {
-                InputStream inputStream=getResources().openRawResource(R.raw.lbpcascade_frontalface);
-                File file=new File(getDir("cascade",MODE_PRIVATE),"lbpcascade_frontalface.xml");
-                FileOutputStream fileOutputStream=new FileOutputStream(file);
+            File faceCascadeFile = loadCascadeFile(R.raw.lbpcascade_frontalface, "lbpcascade_frontalface.xml");
+            File eyeCascadeFile = loadCascadeFile(R.raw.haarcascade_eye, "haarcascade_eye.xml");
+            File noseCascadeFile = loadCascadeFile(R.raw.haarcascade_mcs_nose, "haarcascade_mcs_nose.xml");
+            File mouthCascadeFile = loadCascadeFile(R.raw.haarcascade_mcs_mouth, "haarcascade_mcs_mouth.xml");
 
-                byte[] data=new byte[4096];
-                int read_bytes;
-
-                while ((read_bytes=inputStream.read(data))!=-1){
-                    fileOutputStream.write(data,0,read_bytes);
-
-                }
-
-                cascadeClassifier=new CascadeClassifier(file.getAbsolutePath());
-                if (cascadeClassifier.empty()) cascadeClassifier=null;
-
-                inputStream.close();
-                fileOutputStream.close();
-                file.delete();
-
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (faceCascadeFile != null && eyeCascadeFile != null && noseCascadeFile != null && mouthCascadeFile != null) {
+                loadCascadeFiles(faceCascadeFile.getAbsolutePath(), eyeCascadeFile.getAbsolutePath(), noseCascadeFile.getAbsolutePath(), mouthCascadeFile.getAbsolutePath());
+            } else {
+                Log.e(TAG, "Failed to load cascade files");
             }
 
         }
@@ -220,5 +193,25 @@ public class CameraActivity extends org.opencv.android.CameraActivity {
         }
         return imageFile;
     }
+    private File loadCascadeFile(int resourceId, String fileName) {
+        try {
+            InputStream is = getResources().openRawResource(resourceId);
+            File cascadeDir = getDir("cascade", MODE_PRIVATE);
+            File cascadeFile = new File(cascadeDir, fileName);
+            FileOutputStream os = new FileOutputStream(cascadeFile);
 
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            os.close();
+
+            return cascadeFile;
+        } catch (Exception e) {
+            Log.e(TAG, "Error loading cascade file: " + fileName, e);
+            return null;
+        }
+    }
 }

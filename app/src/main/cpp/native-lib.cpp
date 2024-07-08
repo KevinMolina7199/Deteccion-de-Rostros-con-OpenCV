@@ -2,8 +2,19 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <android/bitmap.h>
+#include <opencv2/objdetect.hpp>
+#include <opencv2/core/types_c.h>
+
+
 
 using namespace cv;
+using namespace std;
+
+CascadeClassifier face_cascade;
+CascadeClassifier eye_cascade;
+CascadeClassifier nose_cascade;
+CascadeClassifier mouth_cascade;
+
 
 void applyGaussianSobelFilter(cv::Mat& src, cv::Mat& dst, int gaussianKernelSize) {
     // Aplicar filtro gaussiano
@@ -21,7 +32,6 @@ void applyGaussianSobelFilter(cv::Mat& src, cv::Mat& dst, int gaussianKernelSize
     // Asignar la matriz resultante a la matriz de destino
     dst = sobelCombined.clone();
 }
-
 
 void bitmapToMat(JNIEnv * env, jobject bitmap, cv::Mat &dst, jboolean needUnPremultiplyAlpha){
     AndroidBitmapInfo  info;
@@ -60,7 +70,6 @@ void bitmapToMat(JNIEnv * env, jobject bitmap, cv::Mat &dst, jboolean needUnPrem
         return;
     }
 }
-
 
 void matToBitmap(JNIEnv * env, cv::Mat src, jobject bitmap, jboolean needPremultiplyAlpha) {
     AndroidBitmapInfo  info;
@@ -141,6 +150,66 @@ void applyCannyFilter(cv::Mat& src, cv::Mat& dst, int lowThreshold, int highThre
     cv::Canny(src, dst, lowThreshold, highThreshold);
 }
 
+void detectMouth(Mat& img, Rect face)
+{
+    vector<Rect> mouths;
+    Mat faceROI = img(Rect(face.x, face.y + face.height * 2 / 3, face.width, face.height / 3));
+    mouth_cascade.detectMultiScale(faceROI, mouths, 1.15, 4, 0, Size(25, 15));
+    for (size_t i = 0; i < mouths.size(); i++)
+    {
+        Rect mouth = mouths[i];
+        rectangle(img, Point(face.x + mouth.x, face.y + mouth.y + face.height * 2 / 3),
+                  Point(face.x + mouth.x + mouth.width, face.y + mouth.y + mouth.height + face.height * 2 / 3),
+                  Scalar(0, 255, 0), 2);
+    }
+}
+
+void detectNose(Mat& img, Rect face)
+{
+    vector<Rect> noses;
+    Mat faceROI = img(Rect(face.x + face.width / 4, face.y + face.height / 3, face.width / 2, face.height / 3));
+    nose_cascade.detectMultiScale(faceROI, noses, 1.15, 4, 0, Size(25, 15));
+    for (size_t i = 0; i < noses.size(); i++)
+    {
+        Rect nose = noses[i];
+        rectangle(img, Point(face.x + nose.x + face.width / 4, face.y + nose.y + face.height / 3),
+                  Point(face.x + nose.x + nose.width + face.width / 4, face.y + nose.y + nose.height + face.height / 3),
+                  Scalar(255, 0, 0), 2);
+    }
+}
+
+void detectEyes(Mat& img, Rect face)
+{
+    vector<Rect> eyes;
+    Mat faceROI = img(Rect(face.x + face.width / 8, face.y, face.width * 3 / 4, face.height / 2));
+    eye_cascade.detectMultiScale(faceROI, eyes, 1.15, 4, 0, Size(25, 15));
+    for (size_t j = 0; j < eyes.size(); j++)
+    {
+        Rect eye = eyes[j];
+        rectangle(img, Point(face.x + eye.x + face.width / 8, face.y + eye.y),
+                  Point(face.x + eye.x + eye.width + face.width / 8, face.y + eye.y + eye.height),
+                  Scalar(0, 0, 255), 2);
+    }
+}
+
+
+void detectAndDraw(Mat& img)
+{
+    vector<Rect> faces;
+    Mat gray;
+    cvtColor(img, gray, COLOR_BGR2GRAY);
+    equalizeHist(gray, gray);
+    face_cascade.detectMultiScale(gray, faces, 1.1, 2, 0 | CASCADE_SCALE_IMAGE, Size(30, 30));
+    for (size_t i = 0; i < faces.size(); i++)
+    {
+        Rect face = faces[i];
+        rectangle(img, Point(face.x, face.y), Point(face.x + face.width, face.y + face.height), Scalar(255, 0, 255), 2);
+        detectEyes(img, face);
+        detectNose(img, face);
+        detectMouth(img, face);
+    }
+}
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_ec_edu_ups_proyectofinal_ProcessingActivity_applyGaussianSobelFilter(
@@ -197,4 +266,31 @@ Java_ec_edu_ups_proyectofinal_ProcessingActivity_applyCannyFilter(
 
     // Convertir la matriz resultante de nuevo a bitmap
     matToBitmap(env, result, bitmapOut, false);
+}
+
+extern "C" JNIEXPORT void JNICALL Java_ec_edu_ups_proyectofinal_CameraActivity_detectFacialFeatures
+        (JNIEnv* env, jobject, jlong addrInput)
+{
+    Mat& img = *(Mat*)addrInput;
+    detectAndDraw(img);
+}
+
+
+extern "C" JNIEXPORT void JNICALL Java_ec_edu_ups_proyectofinal_CameraActivity_loadCascadeFiles
+        (JNIEnv* env, jobject, jstring faceCascadePath, jstring eyeCascadePath, jstring noseCascadePath, jstring mouthCascadePath)
+{
+    const char* faceCascadePathStr = env->GetStringUTFChars(faceCascadePath, nullptr);
+    const char* eyeCascadePathStr = env->GetStringUTFChars(eyeCascadePath, nullptr);
+    const char* noseCascadePathStr = env->GetStringUTFChars(noseCascadePath, nullptr);
+    const char* mouthCascadePathStr = env->GetStringUTFChars(mouthCascadePath, nullptr);
+
+    face_cascade.load(faceCascadePathStr);
+    eye_cascade.load(eyeCascadePathStr);
+    nose_cascade.load(noseCascadePathStr);
+    mouth_cascade.load(mouthCascadePathStr);
+
+    env->ReleaseStringUTFChars(faceCascadePath, faceCascadePathStr);
+    env->ReleaseStringUTFChars(eyeCascadePath, eyeCascadePathStr);
+    env->ReleaseStringUTFChars(noseCascadePath, noseCascadePathStr);
+    env->ReleaseStringUTFChars(mouthCascadePath, mouthCascadePathStr);
 }
