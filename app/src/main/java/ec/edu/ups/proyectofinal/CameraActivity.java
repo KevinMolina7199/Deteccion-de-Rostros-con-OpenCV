@@ -90,8 +90,6 @@ public class CameraActivity extends org.opencv.android.CameraActivity {
         btnCapture = findViewById(R.id.btnCapture);
         fpsTextView = findViewById(R.id.fpsTextView);
 
-        // Cargar la imagen de las gafas
-        glassesBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gafas);
 
         cameraBridgeViewBase.setCvCameraViewListener(new CameraBridgeViewBase.CvCameraViewListener2() {
             @Override
@@ -134,7 +132,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity {
                 currentFrame = outputFrame.clone();
 
                 // Enviar el fotograma al servidor
-                sendFrameToServer(outputFrame);
+                    sendFrameToServer(outputFrame);
 
                 return outputFrame;
             }
@@ -158,6 +156,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity {
         btnCapture.setOnClickListener(v -> captureAndReturnImage());
 
         // Initialize WebSocket client
+        //Compu de la casa        webSocketClient = new WebSocketClient("ws://192.168.18.128:5000/upload");
         webSocketClient = new WebSocketClient("ws://192.168.18.128:5000/upload");
         webSocketClient.connect();
     }
@@ -302,6 +301,7 @@ public class CameraActivity extends org.opencv.android.CameraActivity {
         );
 
         Request request = new Request.Builder()
+                //Compu en la casa .url("http://192.168.18.128:5000/upload_detection")
                 .url("http://192.168.18.128:5000/upload_detection")
                 .post(requestBody)
                 .build();

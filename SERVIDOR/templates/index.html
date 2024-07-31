@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Video Stream and Detection Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+        header {
+            width: 100%;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .logo {
+            width: 100%;
+            overflow: hidden;
+        }
+        .logo img {
+            width: 100%; /* Ajusta el logo al ancho completo del contenedor */
+            height: auto; /* Mantiene la proporción del logo */
+        }
+        h1 {
+            color: #0066cc;
+            margin: 20px 0;
+        }
+        img {
+            width: 80%; /* Ajusta el ancho del video */
+            max-width: 640px; /* Establece un ancho máximo */
+            height: auto; /* Mantiene la proporción del video */
+            border: 2px solid #0066cc;
+            margin: 0 auto; /* Centra el video horizontalmente */
+            display: block; /* Asegura que el video se muestre como un bloque */
+        }
+        pre {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            display: inline-block;
+            max-width: 80%;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        #loading {
+            color: #0066cc;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+        }
+        #loading::after {
+            content: '...';
+            position: absolute;
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        @keyframes dots {
+            0% {
+                content: '...';
+            }
+            20% {
+                content: '..';
+            }
+            40% {
+                content: '.';
+            }
+            60% {
+                content: '..';
+            }
+            80% {
+                content: '...';
+            }
+            100% {
+                content: '...';
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="logo">
+        <img src="{{ url_for('static', filename='logo.webp') }}" alt="Logo">
+    </header>
+    
+    <h1>Proyecto Final</h1>
+    <img src="{{ url_for('video_feed') }}" alt="Live Video Stream">
+    
+    <h2>Envio desde el celular</h2>
+        
+    
+    <script>
+        async function fetchDetectionData() {
+            try {
+                const response = await fetch('/detection_data');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                document.getElementById('detection-info').innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Fetch error:', error);
+                document.getElementById('detection-info').innerText = 'Error fetching detection data';
+            } finally {
+                setTimeout(fetchDetectionData, 5000); // Actualiza cada 5 segundos
+            }
+        }
+
+        window.onload = () => {
+            fetchDetectionData(); // Inicializa la primera llamada
+        }
+    </script>
+</body>
+</html>
